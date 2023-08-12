@@ -1,0 +1,4 @@
+%{ for service in services ~}
+${ service.ip_addr } ${ service.name }.${ domain ~}
+
+%{ endfor ~}

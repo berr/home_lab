@@ -1,0 +1,40 @@
+version: "3.2"
+services:
+  proxy:
+    image: 'nginx:1.20.0-alpine'
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /mnt/data_fast/home_server/data/certs:/certs:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - priv_influxdb
+  
+  priv_influxdb:
+    image: influxdb:2.4
+    container_name: influxdb
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data_fast/home_server/data/influxdb:/var/lib/influxdb2
+      - ./influxdb/config:/etc/influxdb2
+      - ./influxdb/scripts:/docker-entrypoint-initdb.d
+
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Sao_Paulo
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=root
+      - DOCKER_INFLUXDB_INIT_PASSWORD=roothomelab
+      - DOCKER_INFLUXDB_INIT_ORG=berr.dev
+      - DOCKER_INFLUXDB_INIT_BUCKET=homelab 
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=auth-token
+
+  

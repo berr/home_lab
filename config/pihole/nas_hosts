@@ -1,0 +1,8 @@
+10.102.102.0 dashboard.berr.dev
+10.102.102.1 arr.berr.dev
+10.102.102.2 syncthing.berr.dev
+10.102.102.3 jellyfin.berr.dev
+10.102.102.4 navidrome.berr.dev
+10.102.102.5 photoprism.berr.dev
+10.102.102.6 influxdb.berr.dev
+10.102.102.7 grafana.berr.dev

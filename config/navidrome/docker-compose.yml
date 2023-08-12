@@ -1,0 +1,30 @@
+---
+version: "2.1"
+services:
+  proxy:
+    image: 'nginx:1.20.0-alpine'
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /mnt/data_fast/home_server/data/certs:/certs:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - priv_navidrome
+
+  priv_navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    restart: unless-stopped
+    environment:
+      # Optional: put your config options customization here. Examples:
+      ND_SCANSCHEDULE: 1h
+      ND_LOGLEVEL: info
+      ND_SESSIONTIMEOUT: 24h
+  
+    volumes:
+      - "/mnt/data_fast/home_server/data/navidrome:/data"
+      - "/mnt/data_slow/Media/music/:/data/music"

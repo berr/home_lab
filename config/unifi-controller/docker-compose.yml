@@ -1,0 +1,28 @@
+version: "3.2"
+services:
+  unifi-controller:
+    image: lscr.io/linuxserver/unifi-controller:latest
+    container_name: unifi-controller
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./unifi-controller:/config
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Sao_Paulo
+      - MEM_LIMIT=1024 #optional
+      - MEM_STARTUP=1024 #optiona
+    networks:
+      public:
+        ipv4_address: 10.102.5.5
+
+
+networks:
+  public:
+    external:
+      name: services
+
+

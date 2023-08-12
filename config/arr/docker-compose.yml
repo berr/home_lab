@@ -1,0 +1,87 @@
+version: "3.2"
+services:
+  proxy:
+    image: 'nginx:1.20.0-alpine'
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /mnt/data_fast/home_server/data/certs:/certs:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - priv_sonarr
+      - priv_radarr
+      - priv_lidarr
+      - priv_bazarr
+      - priv_prowlarr
+
+  priv_sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    environment:    
+      - PUID=0
+      - GUID=0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data_fast/home_server/data/sonarr:/config
+      - /mnt/data_slow/Media/series/:/data/series
+      - /mnt/data_slow/Downloads/syncthing:/data/downloads
+
+  priv_radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    environment:    
+      - PUID=0
+      - GUID=0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data_fast/home_server/data/radarr:/config
+      - /mnt/data_slow/Media/movies/:/data/movies
+      - /mnt/data_slow/Downloads/syncthing:/data/downloads
+
+  priv_lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    environment:    
+      - PUID=0
+      - GUID=0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data_fast/home_server/data/lidarr:/config
+      - /mnt/data_slow/Media/music/:/data/music
+      - /mnt/data_slow/Downloads/syncthing:/data/downloads
+
+  priv_bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    environment:    
+      - PUID=0
+      - GUID=0
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data_fast/home_server/data/bazarr:/config
+      - /mnt/data_slow/Media/series/:/data/series
+      - /mnt/data_slow/Media/movies/:/data/movies
+
+  priv_prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    environment:    
+      - PUID=0
+      - GUID=0
+    volumes:
+      - /mnt/data_fast/home_server/data/prowlarr:/config
+

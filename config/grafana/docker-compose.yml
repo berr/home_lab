@@ -1,0 +1,35 @@
+version: "3.2"
+services:
+  proxy:
+    image: 'nginx:1.20.0-alpine'
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /mnt/data_fast/home_server/data/certs:/certs:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - priv_grafana
+
+  priv_grafana:
+    image: grafana/grafana-oss:9.1.4
+    container_name: grafana
+    restart: unless-stopped
+    user: 0:0
+    logging:
+      driver: json-file
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data_fast/home_server/data/grafana:/var/lib/grafana
+      - ./config/provisioning:/etc/grafana/provisioning
+      - ./config/dashboards:/etc/dashboards
+
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Sao_Paulo
+
+   

@@ -1,0 +1,6 @@
+docker_services:
+  hosts:
+%{ for service in services ~}
+    ${ service.name }:
+      ansible_host: ${ service.ip_addr }
+%{ endfor ~}

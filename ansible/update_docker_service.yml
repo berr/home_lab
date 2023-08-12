@@ -1,0 +1,17 @@
+---
+- name: Install docker
+  hosts: docker_services
+  remote_user: root
+
+  tasks:
+  - name: Copy config
+    ansible.builtin.copy:
+      src: "../config/{{ ansible_hostname }}/"
+      dest: /container
+
+  - name: Start docker
+    community.docker.docker_compose:
+      project_src: /container
+      build: false
+      pull: true
+      state: present

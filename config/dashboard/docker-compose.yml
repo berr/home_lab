@@ -1,0 +1,21 @@
+version: "3.2"
+services:
+  proxy:
+    image: nginx:1.20.0-alpine
+    environment:    
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /mnt/data_fast/home_server/data/certs:/certs:ro
+    ports:
+      - 80:80
+      - 443:443
+
+  priv_homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    volumes:
+      - /mnt/data_fast/home_server/data/homarr:/app/data/configs
+      - /mnt/data_fast/home_server/cache/homarr:/app/public/icons
+    logging:
+      driver: json-file

@@ -1,0 +1,18 @@
+docker_services:
+  hosts:
+    dashboard:
+      ansible_host: 10.102.102.0
+    arr:
+      ansible_host: 10.102.102.1
+    syncthing:
+      ansible_host: 10.102.102.2
+    jellyfin:
+      ansible_host: 10.102.102.3
+    navidrome:
+      ansible_host: 10.102.102.4
+    photoprism:
+      ansible_host: 10.102.102.5
+    influxdb:
+      ansible_host: 10.102.102.6
+    grafana:
+      ansible_host: 10.102.102.7

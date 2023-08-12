@@ -1,0 +1,47 @@
+---
+- name: Install docker
+  hosts: docker_services
+  remote_user: root
+
+  tasks:
+  - name: Docker Required Packages
+    ansible.builtin.apt:
+      name:
+       - gpg
+       - pip
+      state: latest
+      update_cache: true
+
+  - name: Add Docker GPG apt Key
+    ansible.builtin.apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+
+  - name: Add Docker Repository
+    ansible.builtin.apt_repository:
+      repo: deb https://download.docker.com/linux/debian bullseye stable
+      state: present
+
+  - name: Update apt and install docker-ce
+    ansible.builtin.apt:
+      name: docker-ce
+      state: latest
+      update_cache: true
+
+  - name: Install Docker Module for Python
+    pip:
+      name:
+       - docker
+       - docker-compose
+
+  - name: Copy config
+    ansible.builtin.copy:
+      src: "../config/{{ ansible_hostname }}/"
+      dest: /container
+
+  - name: Start docker
+    community.docker.docker_compose:
+      project_src: /container
+      build: false
+      pull: true
+      state: present

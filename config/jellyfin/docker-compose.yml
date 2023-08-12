@@ -1,0 +1,27 @@
+---
+version: "2.1"
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    ports:
+      - 443:8920
+      - 80:8096
+      - 7359:7359/udp
+      - 1900:1900/udp
+    security_opt:
+    - seccomp=unconfined
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/SaoPaulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data_fast/home_server/data/jellyfin:/config
+      - /mnt/data_fast/home_server/data/certs:/usr/local/etc/letsencrypt/live/berr.dev:ro
+      - /mnt/data_slow/Media/series/:/data/series
+      - /mnt/data_slow/Media/movies/:/data/movies
+  

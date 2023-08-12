@@ -1,0 +1,6 @@
+ssh_public_key_file = "~/.ssh/id_rsa.pub"
+network_prefix = "10.102.0.0/16"
+gateway        = "10.102.0.1"
+dns            = "10.102.0.4"
+domain         = "berr.dev"
+pm_user        = "root@pam"

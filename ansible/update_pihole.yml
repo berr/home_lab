@@ -1,0 +1,43 @@
+---
+- name: Update Pihole configuration
+  hosts: pihole
+  remote_user: root
+
+  tasks:
+  - name: Change web interface password
+    ansible.builtin.shell: pihole -a -p {{ lookup('ansible.builtin.env', 'ROOT_PASSWORD', default=Undefined) }}
+
+  - name: Copy DHCP reservations
+    ansible.builtin.copy:
+      src: "../private/dhcp_reservations"
+      dest: /etc/dnsmasq.d/10-dhcp_reservations
+
+  - name: Copy CNAMEs
+    ansible.builtin.copy:
+      src: "../config/pihole/cnames"
+      dest: /etc/dnsmasq.d/11-cnames
+
+  - name: Copy hosts in NUC
+    ansible.builtin.copy:
+      src: "../config/pihole/nuc_hosts"
+      dest: /etc/pihole/custom_hosts/01-nuc_hosts
+
+  - name: Copy hosts in NAS
+    ansible.builtin.copy:
+      src: "../config/pihole/nas_hosts"
+      dest: /etc/pihole/custom_hosts/02-nas_hosts
+
+  - name: Copy extra hosts
+    ansible.builtin.copy:
+      src: "../config/pihole/extra_hosts"
+      dest: /etc/pihole/custom_hosts/03-extra_hosts
+
+  - name: Merge files into a single custom.list
+    ansible.builtin.assemble:
+      src: /etc/pihole/custom_hosts
+      dest: /etc/pihole/custom.list
+
+  - name: Restart DHCP
+    ansible.builtin.systemd:
+      name: pihole-FTL
+      state: restarted
