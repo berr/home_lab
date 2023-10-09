@@ -50,6 +50,7 @@ locals {
     {name: "photoprism", specs: {disk_size: "8G", memory: 4096}},
     {name: "influxdb", specs: {}},
     {name: "grafana", specs: {}},
+    {name: "letsencrypt", specs: {}},
   ]
 }
 

@@ -39,6 +39,11 @@
       src: "../config/{{ ansible_hostname }}/"
       dest: /container
 
+  - name: Copy config
+    ansible.builtin.copy:
+      src: "../private/{{ ansible_hostname }}/"
+      dest: /container/secrets
+
   - name: Start docker
     community.docker.docker_compose:
       project_src: /container

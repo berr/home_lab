@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  certbot:
+    image: miigotu/certbot-dns-godaddy
+    restart: unless-stopped
+    volumes:
+      - ./secrets/certbot/conf:/etc/letsencrypt
+      - ./secrets/credentials.ini:/root/credentials.ini
+      - ./update_certificates.sh:/root/update_certificates.sh
+      - /mnt/data_fast/home_server/data/certs:/current_cert
+    command: /root/update_certificates.sh
+

@@ -37,7 +37,7 @@
       src: /etc/pihole/custom_hosts
       dest: /etc/pihole/custom.list
 
-  - name: Restart DHCP
+  - name: Restart DNS and DHCP
     ansible.builtin.systemd:
       name: pihole-FTL
       state: restarted
