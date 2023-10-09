@@ -13,7 +13,6 @@ provider "proxmox" {
   pm_tls_insecure = true
 
   pm_user = var.pm_user
-  pm_password = var.pm_pass
 
   pm_log_enable = false
   pm_log_file   = "terraform-plugin-proxmox.log"
@@ -43,6 +42,7 @@ locals {
   }
 
   services = [
+    {name: "unifi", specs: {}},
   ]
 }
 

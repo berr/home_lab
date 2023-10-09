@@ -39,10 +39,15 @@
       src: "../config/{{ ansible_hostname }}/"
       dest: /container
 
+  - name: Check if secrets exist
+    local_action: stat path="../private/{{ ansible_hostname }}/"
+    register: file
+
   - name: Copy config
     ansible.builtin.copy:
       src: "../private/{{ ansible_hostname }}/"
       dest: /container/secrets
+    when: file.stat.exists
 
   - name: Start docker
     community.docker.docker_compose:
