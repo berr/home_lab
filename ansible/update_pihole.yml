@@ -4,9 +4,6 @@
   remote_user: root
 
   tasks:
-  - name: Change web interface password
-    ansible.builtin.shell: pihole -a -p {{ lookup('ansible.builtin.env', 'ROOT_PASSWORD', default=Undefined) }}
-
   - name: Copy DHCP reservations
     ansible.builtin.copy:
       src: "../private/dhcp_reservations"

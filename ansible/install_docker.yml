@@ -1,0 +1,30 @@
+---
+- name: Install docker
+  hosts: docker_services
+  remote_user: root
+  
+  tasks:
+  - name: Add Docker GPG apt Key
+    ansible.builtin.apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+
+  - name: Add Docker Repository
+    ansible.builtin.apt_repository:
+      repo: deb https://download.docker.com/linux/debian bullseye stable
+      state: present
+
+  - name: Update apt and install docker-ce
+    ansible.builtin.apt:
+      name: 
+        - gpg
+        - pip
+        - docker-ce
+      state: latest
+      clean: true
+
+  - name: Install Docker Module for Python
+    pip:
+      name:
+       - docker
+       - docker-compose

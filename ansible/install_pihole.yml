@@ -1,0 +1,35 @@
+---
+- name: Install Pihole
+  hosts: pihole
+  remote_user: root
+
+  tasks:
+  - name: Create pihole directories
+    ansible.builtin.file:
+      path: /etc/pihole
+      state: directory
+      mode: '0755'
+
+  - name: Create custom hosts directory
+    ansible.builtin.file:
+      path: /etc/pihole/custom_hosts
+      state: directory
+      mode: '0755'
+  
+  - name: Copy configuration file
+    ansible.builtin.copy:
+      src: "../config/pihole/setupVars.conf"
+      dest: /etc/pihole/setupVars.conf
+
+  - name: Download Pihole installer
+    delegate_to: localhost
+    get_url:
+      url: "https://install.pi-hole.net"
+      dest: "/tmp/install_pihole.sh"
+
+  - name: Install pihole
+    ansible.builtin.script:
+      cmd: /tmp/install_pihole.sh --unattended
+
+  - name: Change web interface password
+    ansible.builtin.shell: pihole -a -p {{ lookup('ansible.builtin.env', 'ROOT_PASSWORD', default=Undefined) }}

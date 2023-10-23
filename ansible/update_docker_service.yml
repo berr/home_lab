@@ -4,14 +4,40 @@
   remote_user: root
 
   tasks:
-  - name: Copy config
-    ansible.builtin.copy:
-      src: "../config/{{ ansible_hostname }}/"
-      dest: /container
+    - name: Stop docker
+      community.docker.docker_compose:
+        project_src: /container
+        stopped: true
+        state: present
+        remove_orphans: true
 
-  - name: Start docker
-    community.docker.docker_compose:
-      project_src: /container
-      build: false
-      pull: true
-      state: present
+    - name: Prune dangling images
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        networks: true
+        volumes: true
+        builder_cache: true
+
+    - name: Copy config
+      ansible.builtin.copy:
+        src: "../config/{{ ansible_hostname }}/"
+        dest: /container
+
+    - name: Check if secrets exist
+      local_action: stat path="../private/{{ ansible_hostname }}/"
+      register: file
+
+    - name: Copy secret
+      ansible.builtin.copy:
+        src: "../private/{{ ansible_hostname }}/"
+        dest: /container/secrets
+      when: file.stat.exists
+
+    - name: Start docker
+      community.docker.docker_compose:
+        project_src: /container
+        build: true
+        pull: true
+        stopped: false
+        state: present
