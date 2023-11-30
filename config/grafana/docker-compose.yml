@@ -7,7 +7,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /mnt/data_fast/home_server/data/certs:/certs:ro
+      - /mnt/data/home_server/data/certs:/certs:ro
     ports:
       - 80:80
       - 443:443
@@ -17,13 +17,13 @@ services:
   priv_grafana:
     image: grafana/grafana-oss:9.1.4
     container_name: grafana
-    restart: unless-stopped
+    restart: always
     user: 0:0
     logging:
       driver: json-file
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/data_fast/home_server/data/grafana:/var/lib/grafana
+      - /mnt/data/home_server/data/grafana:/var/lib/grafana
       - ./config/provisioning:/etc/grafana/provisioning
       - ./config/dashboards:/etc/dashboards
 

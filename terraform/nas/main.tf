@@ -39,6 +39,7 @@ locals {
     cores = 16
     memory = 2048
     disk_size = "4G"
+    swap = 0
   }
 
   services = [
@@ -47,7 +48,7 @@ locals {
     {name: "syncthing", specs: {}},
     {name: "jellyfin", specs: {}},
     {name: "navidrome", specs: {}},
-    {name: "photoprism", specs: {disk_size: "8G", memory: 4096}},
+    {name: "photoprism", specs: {disk_size: "8G", memory: 4096, swap: 4096}},
     {name: "influxdb", specs: {}},
     {name: "grafana", specs: {}},
     {name: "letsencrypt", specs: {}},

@@ -8,7 +8,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /mnt/data_fast/home_server/data/certs:/certs:ro
+      - /mnt/data/home_server/data/certs:/certs:ro
     ports:
       - 80:80
       - 443:443
@@ -21,7 +21,7 @@ services:
     ## Don't enable automatic restarts until PhotoPrism has been properly configured and tested!
     ## If the service gets stuck in a restart loop, this points to a memory, filesystem, network, or database issue:
     ## https://docs.photoprism.app/getting-started/troubleshooting/#fatal-server-errors
-    restart: unless-stopped
+    restart: always
     stop_grace_period: 10s
     environment:
       PHOTOPRISM_ADMIN_USER: "admin"                 # admin login username
@@ -74,5 +74,5 @@ services:
     #  - "/dev/video11:/dev/video11"                 # Video4Linux Video Encode Device (h264_v4l2m2m)
     working_dir: "/photoprism" # do not change or remove
     volumes:
-      - "/mnt/data_slow/Photos:/photoprism/originals"               # Original media files (DO NOT REMOVE)
-      - "/mnt/data_fast/home_server/cache/photoprism:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)
+      - "/mnt/data/Photos:/photoprism/originals"               # Original media files (DO NOT REMOVE)
+      - "/mnt/data/home_server/cache/photoprism:/photoprism/storage"                  # *Writable* storage folder for cache, database, and sidecar files (DO NOT REMOVE)

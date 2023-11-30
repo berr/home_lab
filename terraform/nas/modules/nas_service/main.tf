@@ -21,6 +21,7 @@ resource "proxmox_lxc" "container" {
   
   cores = var.specs.cores
   memory = var.specs.memory
+  swap = var.specs.swap
 
   features {
     nesting = true
@@ -34,19 +35,10 @@ resource "proxmox_lxc" "container" {
   mountpoint {
     slot    = "0"
     key     = 0
-    storage = "/mnt/data_fast"
-    volume  = "/mnt/data_fast"
-    mp      = "/mnt/data_fast"
-    size    = "1T"
-  }
-
-  mountpoint {
-    slot    = "1"
-    key     = 1
-    storage = "/mnt/data_slow"
-    volume  = "/mnt/data_slow"
-    mp      = "/mnt/data_slow"
-    size    = "2T"
+    storage = "/mnt/data"
+    volume  = "/mnt/data"
+    mp      = "/mnt/data"
+    size    = "4T"
   }
 
 

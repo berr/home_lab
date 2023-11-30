@@ -4,7 +4,7 @@ services:
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
-    restart: unless-stopped
+    restart: always
     logging:
       driver: json-file
     ports:
@@ -20,8 +20,8 @@ services:
       - TZ=America/SaoPaulo
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/data_fast/home_server/data/jellyfin:/config
-      - /mnt/data_fast/home_server/data/certs:/usr/local/etc/letsencrypt/live/berr.dev:ro
-      - /mnt/data_slow/Media/series/:/data/series
-      - /mnt/data_slow/Media/movies/:/data/movies
+      - /mnt/data/home_server/data/jellyfin:/config
+      - /mnt/data/home_server/data/certs:/usr/local/etc/letsencrypt/live/berr.dev:ro
+      - /mnt/data/Media/series/:/data/series
+      - /mnt/data/Media/movies/:/data/movies
   
