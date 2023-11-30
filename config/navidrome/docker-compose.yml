@@ -26,5 +26,5 @@ services:
       ND_SESSIONTIMEOUT: 24h
   
     volumes:
-      - "/mnt/data/home_server/data/navidrome:/data"
-      - "/mnt/data/Media/music/:/data/music"
+      - "/mnt/data/home_server/data/navidrome:/ data"
+      - "/mnt/data/Media/music/:/music"
