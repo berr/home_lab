@@ -2,7 +2,7 @@ version: '3'
 
 services:
   certbot:
-    image: miigotu/certbot-dns-godaddy
+    image: registry.berr.dev/certbot-dns-godaddy:deployed
     restart: always
     volumes:
       - ./secrets/certbot/conf:/etc/letsencrypt

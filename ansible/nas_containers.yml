@@ -19,3 +19,5 @@ docker_services:
       ansible_host: 10.102.102.7
     letsencrypt:
       ansible_host: 10.102.102.8
+    registry:
+      ansible_host: 10.102.102.9

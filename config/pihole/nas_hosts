@@ -8,3 +8,4 @@
 10.102.102.6 influxdb.berr.dev
 10.102.102.7 grafana.berr.dev
 10.102.102.8 letsencrypt.berr.dev
+10.102.102.9 registry.berr.dev

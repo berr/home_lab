@@ -4,6 +4,14 @@
   remote_user: root
   
   tasks:
+  - name: Update apt and install gpg and pip
+    ansible.builtin.apt:
+      name: 
+        - gpg
+        - pip
+      state: latest
+      update_cache: true
+
   - name: Add Docker GPG apt Key
     ansible.builtin.apt_key:
       url: https://download.docker.com/linux/debian/gpg
@@ -14,17 +22,16 @@
       repo: deb https://download.docker.com/linux/debian bullseye stable
       state: present
 
-  - name: Update apt and install docker-ce
+  - name: Install docker-ce
     ansible.builtin.apt:
-      name: 
-        - gpg
-        - pip
+      name:
         - docker-ce
       state: latest
+      update_cache: true
       clean: true
 
   - name: Install Docker Module for Python
     pip:
       name:
-       - docker
-       - docker-compose
+       - docker<7.0
+       - docker-compose==1.29

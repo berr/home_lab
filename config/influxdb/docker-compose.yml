@@ -1,7 +1,10 @@
 version: "3.2"
 services:
   proxy:
-    image: 'nginx:1.20.0-alpine'
+    image: registry.berr.dev/nginx:deployed
+    restart: always
+    logging:
+      driver: json-file
     environment:
       - TZ=America/Sao_Paulo
     volumes:
@@ -15,8 +18,7 @@ services:
       - priv_influxdb
   
   priv_influxdb:
-    image: influxdb:2.4
-    container_name: influxdb
+    image: registry.berr.dev/influxdb:deployed
     restart: always
     logging:
       driver: json-file

@@ -2,7 +2,6 @@ version: "3.2"
 services:
   unifi-controller:
     image: lscr.io/linuxserver/unifi-controller:latest
-    container_name: unifi-controller
     restart: always
     logging:
       driver: json-file

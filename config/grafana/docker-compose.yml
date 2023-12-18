@@ -1,7 +1,10 @@
 version: "3.2"
 services:
   proxy:
-    image: 'nginx:1.20.0-alpine'
+    image: registry.berr.dev/nginx:deployed
+    restart: always
+    logging:
+      driver: json-file
     environment:
       - TZ=America/Sao_Paulo
     volumes:
@@ -15,12 +18,11 @@ services:
       - priv_grafana
 
   priv_grafana:
-    image: grafana/grafana-oss:9.1.4
-    container_name: grafana
+    image: registry.berr.dev/grafana:deployed
     restart: always
-    user: 0:0
     logging:
       driver: json-file
+    user: 0:0
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/data/home_server/data/grafana:/var/lib/grafana

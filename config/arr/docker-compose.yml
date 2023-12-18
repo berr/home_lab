@@ -1,7 +1,10 @@
 version: "3.2"
 services:
   proxy:
-    image: 'nginx:1.20.0-alpine'
+    image: registry.berr.dev/nginx:deployed
+    restart: always
+    logging:
+      driver: json-file
     environment:
       - TZ=America/Sao_Paulo
     volumes:
@@ -19,7 +22,7 @@ services:
       - priv_prowlarr
 
   priv_sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
+    image: registry.berr.dev/sonarr:deployed
     restart: always
     logging:
       driver: json-file
@@ -33,7 +36,7 @@ services:
       - /mnt/data/Downloads/syncthing:/data/downloads
 
   priv_radarr:
-    image: lscr.io/linuxserver/radarr:latest
+    image: registry.berr.dev/radarr:deployed
     restart: always
     logging:
       driver: json-file
@@ -47,7 +50,7 @@ services:
       - /mnt/data/Downloads/syncthing:/data/downloads
 
   priv_lidarr:
-    image: lscr.io/linuxserver/lidarr:latest
+    image: registry.berr.dev/lidarr:deployed
     restart: always
     logging:
       driver: json-file
@@ -61,7 +64,7 @@ services:
       - /mnt/data/Downloads/syncthing:/data/downloads
 
   priv_bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
+    image: registry.berr.dev/bazarr:deployed
     restart: always
     logging:
       driver: json-file
@@ -75,7 +78,7 @@ services:
       - /mnt/data/Media/movies/:/data/movies
 
   priv_prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
+    image: registry.berr.dev/prowlarr:deployed
     restart: always
     logging:
       driver: json-file

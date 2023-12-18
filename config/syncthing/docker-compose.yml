@@ -1,7 +1,10 @@
 version: "3.2"
 services:
   proxy:
-    image: 'nginx:1.20.0-alpine'
+    image: registry.berr.dev/nginx:deployed
+    restart: always
+    logging:
+      driver: json-file
     environment:    
       - TZ=America/Sao_Paulo
     volumes:
@@ -16,8 +19,7 @@ services:
 
   
   priv_syncthing:
-    image: lscr.io/linuxserver/syncthing
-    container_name: syncthing
+    image: registry.berr.dev/syncthing:deployed
     restart: always
     logging:
       driver: json-file

@@ -4,11 +4,20 @@
   remote_user: root
 
   tasks:
+    - name: Check if compose file exists
+      local_action: stat path="/container/docker-compose.yml"
+      register: compose_file
+
+    - name: Copy config
+      ansible.builtin.copy:
+        src: "../config/{{ ansible_hostname }}/"
+        dest: /container
+      when: not compose_file.stat.exists
+
     - name: Stop docker
       community.docker.docker_compose:
         project_src: /container
-        stopped: true
-        state: present
+        state: absent
         remove_orphans: true
 
     - name: Prune dangling images
@@ -26,13 +35,13 @@
 
     - name: Check if secrets exist
       local_action: stat path="../private/{{ ansible_hostname }}/"
-      register: file
+      register: secret_file
 
     - name: Copy secret
       ansible.builtin.copy:
         src: "../private/{{ ansible_hostname }}/"
         dest: /container/secrets
-      when: file.stat.exists
+      when: secret_file.stat.exists
 
     - name: Start docker
       community.docker.docker_compose:

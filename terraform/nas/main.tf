@@ -52,6 +52,7 @@ locals {
     {name: "influxdb", specs: {}},
     {name: "grafana", specs: {}},
     {name: "letsencrypt", specs: {}},
+    {name: "registry", specs: {}},
   ]
 }
 
