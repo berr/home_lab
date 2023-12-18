@@ -1,0 +1,49 @@
+version: "3.2"
+services:
+  proxy:
+    image: registry.berr.dev/nginx:deployed
+    restart: always
+    logging:
+      driver: json-file
+    environment:    
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /mnt/data/home_server/data/certs:/certs:ro
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - priv_joplin
+
+  priv_joplin:
+    image: registry.berr.dev/joplin:deployed
+    restart: always
+    logging:
+      driver: json-file
+    depends_on:
+        - priv_db
+    ports:
+      - 22300:22300
+    environment:
+        - APP_PORT=22300
+        - APP_BASE_URL=https://joplin.berr.dev
+        - DB_CLIENT=pg
+        - POSTGRES_PASSWORD=db_pass
+        - POSTGRES_DATABASE=joplin
+        - POSTGRES_USER=db_user
+        - POSTGRES_PORT=5432
+        - POSTGRES_HOST=priv_db
+
+  priv_db:
+    image: postgres:16
+    restart: always
+    logging:
+      driver: json-file
+    volumes:
+        - /mnt/data/home_server/data/joplin/db:/var/lib/postgresql/data
+    environment:
+        - POSTGRES_PASSWORD=db_pass
+        - POSTGRES_USER=db_user
+        - POSTGRES_DB=joplin

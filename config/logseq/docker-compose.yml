@@ -2,9 +2,6 @@ version: "3.2"
 services:
   proxy:
     image: registry.berr.dev/nginx:deployed
-    restart: always
-    logging:
-      driver: json-file
     environment:    
       - TZ=America/Sao_Paulo
     volumes:
@@ -15,13 +12,9 @@ services:
       - 80:80
       - 443:443
     depends_on:
-      - priv_homarr
+      - priv_logseq
 
-  priv_homarr:
-    image: registry.berr.dev/homarr:deployed
-    restart: always
+  priv_logseq:
+    image: registry.berr.dev/logseq-webapp:deployed
     logging:
       driver: json-file
-    volumes:
-      - /mnt/data/home_server/data/homarr:/app/data/configs
-      - /mnt/data/home_server/cache/homarr:/app/public/icons

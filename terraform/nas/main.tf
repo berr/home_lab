@@ -53,6 +53,8 @@ locals {
     {name: "grafana", specs: {}},
     {name: "letsencrypt", specs: {}},
     {name: "registry", specs: {}},
+    {name: "logseq", specs: {}},
+    {name: "joplin", specs: {disk_size: "8G"}},
   ]
 }
 

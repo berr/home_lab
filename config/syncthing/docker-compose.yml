@@ -23,6 +23,8 @@ services:
     restart: always
     logging:
       driver: json-file
+    ports:
+      - 22000:22000
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /mnt/data/home_server/data/syncthing:/config
