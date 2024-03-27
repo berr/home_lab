@@ -17,16 +17,8 @@
     - name: Stop docker
       community.docker.docker_compose:
         project_src: /container
-        state: absent
+        state: "absent"
         remove_orphans: true
-
-    - name: Prune dangling images
-      community.docker.docker_prune:
-        containers: true
-        images: true
-        networks: true
-        volumes: true
-        builder_cache: true
 
     - name: Copy config
       ansible.builtin.copy:
@@ -48,5 +40,13 @@
         project_src: /container
         build: true
         pull: true
-        stopped: false
+        recreate: "always"
         state: present
+
+    - name: Prune dangling images
+      community.docker.docker_prune:
+        containers: true
+        images: true
+        networks: true
+        volumes: true
+        builder_cache: true
