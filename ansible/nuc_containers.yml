@@ -3,5 +3,7 @@ docker_services:
   hosts:
     pihole:
       ansible_host: 10.102.0.4
-    unifi:
+    registry:
       ansible_host: 10.102.101.0
+    letsencrypt:
+      ansible_host: 10.102.101.1

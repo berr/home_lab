@@ -4,3 +4,7 @@ cname=lidarr.berr.dev,arr.berr.dev
 cname=readarr.berr.dev,arr.berr.dev
 cname=prowlarr.berr.dev,arr.berr.dev
 cname=bazarr.berr.dev,arr.berr.dev
+
+cname=modem.berr.dev,netmgtproxy.berr.dev
+cname=switch.berr.dev,netmgtproxy.berr.dev
+cname=pfsense.berr.dev,netmgtproxy.berr.dev

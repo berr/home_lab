@@ -39,10 +39,12 @@ locals {
     cores = 4
     memory = 2048
     disk_size = "4G"
+    template = "local:vztmpl/debian12_homelab.tar.xz"
   }
 
   services = [
-    {name: "unifi", specs: {}},
+    {name: "registry", specs: {}},
+    {name: "letsencrypt", specs: {}},
   ]
 }
 
@@ -53,7 +55,7 @@ module "pihole" {
   ip       = "${local.network.dns}/${local.network.net_size}"
 
   node    = var.proxmox_node
-  specs = local.default_specs
+  specs = merge(local.default_specs, {template = "local:vztmpl/debian-11-standard_11.3-1_amd64.tar.zst"})
   secrets = local.secrets
   network = {
     gateway = local.network.gateway

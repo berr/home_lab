@@ -32,5 +32,6 @@ variable "specs" {
     cores = number,
     memory = number,
     disk_size = string,
+    template = string,
   })
 }

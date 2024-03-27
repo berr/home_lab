@@ -13,7 +13,7 @@ resource "proxmox_lxc" "container" {
   ssh_public_keys = var.secrets.ssh_public_key
   password     = var.secrets.root_password
   
-  ostemplate   = "local:vztmpl/debian-11-standard_11.3-1_amd64.tar.zst"
+  ostemplate   = "local:vztmpl/debian12_homelab.tar.xz"
 
   start = true
   onboot = true
@@ -28,7 +28,7 @@ resource "proxmox_lxc" "container" {
   }
 
   rootfs {
-    storage = "local-lvm"
+    storage = "container-data"
     size    = var.specs.disk_size
   }
 

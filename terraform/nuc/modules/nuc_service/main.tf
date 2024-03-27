@@ -13,7 +13,7 @@ resource "proxmox_lxc" "container" {
   ssh_public_keys = var.secrets.ssh_public_key
   password     = var.secrets.root_password
   
-  ostemplate   = "local:vztmpl/debian-11-standard_11.3-1_amd64.tar.zst"
+  ostemplate   = var.specs.template
 
   start = true
   onboot = true
@@ -30,6 +30,16 @@ resource "proxmox_lxc" "container" {
     storage = "data_nvme"
     size    = var.specs.disk_size
   }
+
+  mountpoint {
+    slot    = "0"
+    key     = 0
+    storage = "/mnt/data"
+    volume  = "/mnt/data"
+    mp      = "/mnt/data"
+    size    = "1T"
+  }
+
 
   nameserver = var.network.dns
   network {

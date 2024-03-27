@@ -17,11 +17,5 @@ docker_services:
       ansible_host: 10.102.102.6
     grafana:
       ansible_host: 10.102.102.7
-    letsencrypt:
-      ansible_host: 10.102.102.8
-    registry:
-      ansible_host: 10.102.102.9
-    logseq:
-      ansible_host: 10.102.102.10
     joplin:
-      ansible_host: 10.102.102.11
+      ansible_host: 10.102.102.8

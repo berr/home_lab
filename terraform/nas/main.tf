@@ -51,10 +51,7 @@ locals {
     {name: "photoprism", specs: {disk_size: "8G", memory: 4096, swap: 4096}},
     {name: "influxdb", specs: {}},
     {name: "grafana", specs: {}},
-    {name: "letsencrypt", specs: {}},
-    {name: "registry", specs: {}},
-    {name: "logseq", specs: {}},
-    {name: "joplin", specs: {disk_size: "8G"}},
+    {name: "joplin", specs: {}},
   ]
 }
 
