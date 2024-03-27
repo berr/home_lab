@@ -36,7 +36,8 @@ def read_images(images_file):
     with open(images_file) as f:
         for line in f:
             line = line.strip()
-            if not line:
+
+            if not line or line.startswith("#"):
                 continue
             
             yield line
