@@ -45,6 +45,9 @@ locals {
   services = [
     {name: "registry", specs: {}},
     {name: "letsencrypt", specs: {}},
+    {name: "networkmanagement", specs: {}},
+    {name: "ldap", specs: {}},
+    {name: "homeassistant", specs: {}},
   ]
 }
 

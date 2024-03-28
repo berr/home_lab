@@ -1,8 +1,12 @@
-10.102.0.1 gateway.berr.dev
-10.102.0.2 switch.berr.dev
-10.102.0.3 ap.berr.dev
+10.102.0.1 gateway.hw.berr.dev
+10.102.0.2 switch.hw.berr.dev
+10.102.0.3 ap.hw.berr.dev
 10.102.0.4 dns.berr.dev
+
+10.102.1.1 nuc.hw.berr.dev
 10.102.1.1 nuc.berr.dev
+10.102.1.2 nas.hw.berr.dev
 10.102.1.2 nas.berr.dev
+
 85.31.235.102 berr.dev
 85.31.235.102 www.berr.dev

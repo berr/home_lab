@@ -2,3 +2,6 @@
 10.102.0.4 pihole.berr.dev
 10.102.101.0 registry.berr.dev
 10.102.101.1 letsencrypt.berr.dev
+10.102.101.2 networkmanagement.berr.dev
+10.102.101.3 ldap.berr.dev
+10.102.101.4 homeassistant.berr.dev

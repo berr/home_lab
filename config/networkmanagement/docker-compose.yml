@@ -1,0 +1,15 @@
+---
+version: "2.1"
+services:
+  proxy:
+    image: registry.berr.dev/nginx:deployed
+    restart: always
+    logging:
+      driver: json-file
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 443:443
