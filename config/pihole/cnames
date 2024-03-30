@@ -10,4 +10,4 @@ cname=modem.berr.dev,networkmanagement.berr.dev
 cname=switch.berr.dev,networkmanagement.berr.dev
 cname=unifi.berr.dev,networkmanagement.berr.dev
 
-cname=homeassistant.berr.dev,ha.berr.dev
+cname=ha.berr.dev,homeassistant.berr.dev
