@@ -1,7 +1,6 @@
 10.102.0.1 gateway.hw.berr.dev
 10.102.0.2 switch.hw.berr.dev
 10.102.0.3 ap.hw.berr.dev
-10.102.0.4 dns.berr.dev
 
 10.102.1.1 nuc.hw.berr.dev
 10.102.1.1 nuc.berr.dev

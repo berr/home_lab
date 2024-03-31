@@ -9,5 +9,6 @@ cname=gateway.berr.dev,networkmanagement.berr.dev
 cname=modem.berr.dev,networkmanagement.berr.dev
 cname=switch.berr.dev,networkmanagement.berr.dev
 cname=unifi.berr.dev,networkmanagement.berr.dev
+cname=dns.berr.dev,networkmanagement.berr.dev
 
 cname=ha.berr.dev,homeassistant.berr.dev

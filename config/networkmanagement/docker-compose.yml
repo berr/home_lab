@@ -1,8 +1,7 @@
----
-version: "2.1"
+version: "3.2"
 services:
   proxy:
-    image: registry.berr.dev/nginx:deployed
+    image: 'nginx:1.20.0-alpine'
     restart: always
     logging:
       driver: json-file
@@ -11,5 +10,52 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - /mnt/data/home_server/data/certs:/certs:ro
     ports:
+      - 80:80
       - 443:443
+    depends_on:
+      - priv_unifi
+
+  priv_unifi-db:
+    image: registry.berr.dev/mongo:deployed
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    volumes:
+      - /mnt/data/home_server/data/unifi/db:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+  priv_unifi:
+    image: registry.berr.dev/unifi-network-application:deployed
+    restart: always
+    logging:
+      driver: json-file
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /mnt/data/home_server/data/unifi/config:/config
+    depends_on: 
+      - priv_unifi-db
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=America/Sao_Paulo
+      - MONGO_USER=unifi
+      - MONGO_PASS=unifi
+      - MONGO_HOST=priv_unifi-db
+      - MONGO_PORT=27017
+      - MONGO_DBNAME=unifi
+      - MEM_LIMIT=1024 #optional
+      - MEM_STARTUP=1024 #optional
+      - MONGO_TLS= #optional
+      - MONGO_AUTHSOURCE= #optional
+    ports:
+      - 8080:8080
+      #- 8443:8443
+      - 3478:3478/udp
+      - 10001:10001/udp
+      - 1900:1900/udp #optional
+      - 8843:8843 #optional
+      - 8880:8880 #optional
+      - 6789:6789 #optional
+      - 5514:5514/udp #optional

@@ -1,7 +1,8 @@
 nginx:stable-alpine3.17-slim
 
 miigotu/certbot-dns-godaddy:main7417088818
-lscr.io/linuxserver/unifi-controller:latest
+linuxserver/unifi-network-application:8.1.113
+mongo:7.0.7
 homeassistant/home-assistant:2024.3
 
 postgres:16.2
